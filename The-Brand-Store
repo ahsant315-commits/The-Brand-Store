@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleHub | Modern Garments Store</title>
+    <meta name="description" content="Discover premium quality garments, trendy fashion, and exclusive collections at StyleHub. Shop men's, women's, and kids' clothing with free shipping.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3b82f6",
+                        secondary: "#1e40af",
+                        accent: "#ef4444",
+                        light: "#f8fafc",
+                        dark: "#1e293b"
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'display': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-white font-sans text-gray-800">
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">S</span>
+                    </div>
+                    <h1 class="text-2xl font-bold text-dark">Style<span class="text-primary">Hub</span></h1>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:block">
+                    <ul id="main-nav" class="flex space-x-8"></ul>
+                </nav>
+
+                <!-- Action Icons -->
+                <div class="flex items-center space-x-6">
+                    <button id="search-btn" class="text-gray-600 hover:text-primary transition-colors">
+                        <i class="fas fa-search text-lg"></i>
+                    </button>
+                    <button id="cart-btn" class="text-gray-600 hover:text-primary transition-colors relative">
+                        <i class="fas fa-shopping-bag text-lg"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </button>
+                    <button id="user-btn" class="text-gray-600 hover:text-primary transition-colors">
+                        <i class="fas fa-user text-lg"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="md:hidden text-gray-600 hover:text-primary">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div id="search-bar" class="hidden py-4 border-t">
+                <div class="relative">
+                    <input type="text" placeholder="Search for garments, brands, or categories..." class="w-full px-4 py-3 pl-12 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-nav" class="md:hidden hidden bg-white border-t">
+            <ul id="mobile-nav-list" class="py-4"></ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-4 py-16 md:py-24">
+            <div class="max-w-2xl">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 font-display">New Season Collection</h2>
+                <p class="text-xl mb-8 opacity-90">Discover premium quality garments crafted for comfort and style. Limited time offers available.</p>
+                <div class="flex flex-wrap gap-4">
+                    <button class="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Shop Now</button>
+                    <button class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary transition-colors">View Collection</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Shop by Category</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Browse our extensive collection of garments across all categories</p>
+            </div>
+            <div id="categories-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-16 bg-light">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">Featured Products</h2>
+                    <p class="text-gray-600">Handpicked selections from our latest collection</p>
+                </div>
+                <button class="text-primary font-semibold hover:underline">View All →</button>
+            </div>
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- Banner Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="bg-gradient-to-r from-dark to-gray-800 rounded-2xl p-8 md:p-12 text-white">
+                <div class="max-w-xl">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Summer Sale Up to 50% Off</h2>
+                    <p class="text-lg mb-6 opacity-90">Don't miss out on our biggest sale of the season. Limited stock available.</p>
+                    <button class="bg-primary hover:bg-secondary px-8 py-3 rounded-lg font-semibold transition-colors">Shop Sale</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">What Our Customers Say</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Join thousands of satisfied customers who love our quality garments</p>
+            </div>
+            <div id="testimonials-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
+                <p class="mb-8 opacity-90">Subscribe to our newsletter for exclusive offers, new arrivals, and fashion tips</p>
+                <form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input type="email" placeholder="Your email address" required class="flex-grow px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
+                    <button type="submit" class="bg-dark hover:bg-gray-900 px-6 py-3 rounded-lg font-semibold transition-colors">Subscribe</button>
+                </form>
+                <p class="text-sm mt-4 opacity-75">By subscribing, you agree to our Privacy Policy</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold text-xl">S</span>
+                        </div>
+                        <h3 class="text-2xl font-bold">Style<span class="text-primary">Hub</span></h3>
+                    </div>
+                    <p class="text-gray-400 mb-6">Premium garments store offering quality fashion for everyone since 2015.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Quick Links</h4>
+                    <ul id="quick-links" class="space-y-3"></ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Categories</h4>
+                    <ul id="footer-categories" class="space-y-3"></ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6">Contact Us</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-primary mt-1"></i>
+                            <span class="text-gray-400">123 Fashion Street, New York, NY 10001</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-primary"></i>
+                            <span class="text-gray-400">+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-primary"></i>
+                            <span class="text-gray-400">support@stylehub.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 StyleHub Garments Store. All rights reserved.</p>
+                <div class="mt-4 flex justify-center space-x-6">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition-colors">Shipping Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Returns & Refunds</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-96 bg-white shadow-xl transform translate-x-full transition-transform z-50">
+        <div class="h-full flex flex-col">
+            <div class="flex items-center justify-between p-6 border-b">
+                <h3 class="text-xl font-bold">Your Cart</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="flex-grow overflow-y-auto p-6">
+                <!-- Cart items will be rendered here -->
+            </div>
+            <div class="border-t p-6">
+                <div class="flex justify-between mb-4">
+                    <span class="font-semibold">Subtotal</span>
+                    <span id="cart-subtotal" class="font-bold">$0.00</span>
+                </div>
+                <button class="w-full bg-primary hover:bg-secondary text-white py-3 rounded-lg font-semibold transition-colors">Proceed to Checkout</button>
+                <button class="w-full mt-3 border border-gray-300 hover:bg-gray-50 py-3 rounded-lg font-semibold transition-colors">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Layer
+        const navigationData = [
+            { "label": "Home", "href": "#home", "icon": "fas fa-home" },
+            { "label": "Men", "href": "#men", "icon": "fas fa-male" },
+            { "label": "Women", "href": "#women", "icon": "fas fa-female" },
+            { "label": "Kids", "href": "#kids", "icon": "fas fa-child" },
+            { "label": "New Arrivals", "href": "#new", "icon": "fas fa-star" },
+            { "label": "Sale", "href": "#sale", "icon": "fas fa-tag" },
+            { "label": "Collections", "href": "#collections", "icon": "fas fa-layer-group" }
+        ];
+
+        const categoriesData = [
+            { "name": "Men's Wear", "count": "45 items", "img": "https://picsum.photos/300/200?random=1", "color": "bg-blue-50" },
+            { "name": "Women's Fashion", "count": "68 items", "img": "https://picsum.photos/300/200?random=2", "color": "bg-pink-50" },
+            { "name": "Kids Collection", "count": "32 items", "img": "https://picsum.photos/300/200?random=3", "color": "bg-yellow-50" },
+            { "name": "Accessories", "count": "28 items", "img": "https://picsum.photos/300/200?random=4", "color": "bg-purple-50" }
+        ];
+
+        const productsData = [
+            { 
+                "id": 1, 
+                "name": "Premium Cotton T-Shirt", 
+                "category": "Men's Wear", 
+                "price": 29.99, 
+                "originalPrice": 39.99, 
+                "discount": 25, 
+                "img": "https://picsum.photos/400/500?random=5", 
+                "rating": 4.5,
+                "reviews": 128
+            },
+            { 
+                "id": 2, 
+                "name": "Designer Denim Jacket", 
+                "category": "Women's Fashion", 
+                "price": 89.99, 
+                "originalPrice": 119.99, 
+                "discount": 25, 
+                "img": "https://picsum.photos/400/500?random=6", 
+                "rating": 4.8,
+                "reviews": 56
+            },
+            { 
+                "id": 3, 
+                "name": "Casual Summer Dress", 
+                "category": "Women's Fashion", 
+                "price": 49.99, 
+                "originalPrice": 59.99, 
+                "discount": 17, 
+                "img": "https://picsum.photos/400/500?random=7", 
+                "rating": 4.3,
+                "reviews": 89
+            },
+            { 
+                "id": 4, 
+                "name": "Sport Active Wear Set", 
+                "category": "Men's Wear", 
+                "price": 64.99, 
+                "originalPrice": 79.99, 
+                "discount": 19, 
+                "img": "https://picsum.photos/400/500?random=8", 
+                "rating": 4.7,
+                "reviews": 42
+            }
+        ];
+
+        const testimonialsData = [
+            { 
+                "name": "Sarah Johnson", 
+                "role": "Fashion Blogger", 
+                "text": "The quality of garments at StyleHub is exceptional. I've been shopping here for years and the consistency is impressive.", 
+                "rating": 5,
+                "img": "https://picsum.photos/100/100?random=9"
+            },
+            { 
+                "name": "Michael Chen", 
+                "role": "Regular Customer", 
+                "text": "Great selection and fast shipping. Their customer service is top-notch and the return policy is very fair.", 
+                "rating": 4,
+                "img": "https://picsum.photos/100/100?random=10"
+            },
+            { 
+                "name": "Emma Rodriguez", 
+                "role": "Interior Designer", 
+                "text": "I love their sustainable collection. The fabrics feel amazing and the designs are always on trend.", 
+                "rating": 5,
+                "img": "https://picsum.photos/100/100?random=11"
+            }
+        ];
+
+        const quickLinksData = [
+            { "label": "About Us", "href": "#about" },
+            { "label": "Contact", "href": "#contact" },
+            { "label": "FAQs", "href": "#faqs" },
+            { "label": "Shipping Info", "href": "#shipping" },
+            { "label": "Size Guide", "href": "#size-guide" },
+            { "label": "Care Instructions", "href": "#care" }
+        ];
+
+        const footerCategoriesData = [
+            { "label": "T-Shirts", "href": "#tshirts" },
+            { "label": "Jeans", "href": "#jeans" },
+            { "label": "Dresses", "href": "#dresses" },
+            { "label": "Jackets", "href": "#jackets" },
+            { "label": "Activewear", "href": "#activewear" },
+            { "label": "Accessories", "href": "#accessories" }
+        ];
+
+        const cartItemsData = [
+            { "id": 1, "name": "Premium Cotton T-Shirt", "size": "M", "color": "Blue", "price": 29.99, "quantity": 1, "img": "https://picsum.photos/100/100?random=12" },
+            { "id": 2, "name": "Designer Denim Jacket", "size": "L", "color": "Black", "price": 89.99, "quantity": 1, "img": "https://picsum.photos/100/100?random=13" },
+            { "id": 3, "name": "Casual Summer Dress", "size": "S", "color": "White", "price": 49.99, "quantity": 2, "img": "https://picsum.photos/100/100?random=14" }
+        ];
+
+        // Reusable Render Functions
+        function renderNavigation(items) {
+            return items.map(item => 
+                `<li><a href="${item.href}" class="text-gray-600 hover:text-primary font-medium transition-colors">${item.label}</a></li>`
+            ).join("");
+        }
+
+        function renderMobileNavigation(items) {
+            return items.map(item => 
+                `<li class="border-b border-gray-100"><a href="${item.href}" class="flex items-center space-x-3 py-4 px-6 text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors"><i class="${item.icon} w-6"></i><span>${item.label}</span></a></li>`
+            ).join("");
+        }
+
+        function renderCategories(items) {
+            return items.map(item => 
+                `<div class="group cursor-pointer">
+                    <div class="${item.color} rounded-xl overflow-hidden mb-4">
+                        <img src="${item.img}" alt="${item.name}" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                    </div>
+                    <h3 class="font-semibold text-lg mb-1">${item.name}</h3>
+                    <p class="text-gray-600 text-sm">${item.count}</p>
+                </div>`
+            ).join("");
+        }
+
+        function renderProducts(items) {
+            return items.map(item => 
+                `<div class="group">
+                    <div class="relative overflow-hidden rounded-xl mb-4">
+                        <img src="${item.img}" alt="${item.name}" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                        ${item.discount ? `<span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">-${item.discount}%</span>` : ""}
+                        <button class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md hover:bg-gray-50" onclick="addToCart(${item.id})">
+                            <i class="fas fa-shopping-bag text-gray-700"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-gray-600 text-sm">${item.category}</p>
+                        <h3 class="font-semibold text-lg group-hover:text-primary transition-colors">${item.name}</h3>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xl font-bold">$${item.price.toFixed(2)}</span>
+                            ${item.originalPrice ? `<span class="text-gray-500 line-through text-sm">$${item.originalPrice.toFixed(2)}</span>` : ""}
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="flex text-yellow-400">
+                                ${Array.from({length: 5}, (_, i) => 
+                                    `<i class="fas fa-star${i < Math.floor(item.rating) ? "" : i < item.rating ? "-half-alt" : ""}"></i>`
+                                ).join("")}
+                            </div>
+                            <span class="text-gray-600 text-sm">(${item.reviews})</span>
+                        </div>
+                    </div>
+                </div>`
+            ).join("");
+        }
+
+        function renderTestimonials(items) {
+            return items.map(item => 
+                `<div class="bg-white rounded-xl p-6 shadow-sm border">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <img src="${item.img}" alt="${item.name}" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-semibold">${item.name}</h4>
+                            <p class="text-gray-600 text-sm">${item.role}</p>
+                        </div>
+                    </div>
+                    <div class="flex text-yellow-400 mb-3">
+                        ${Array.from({length: 5}, (_, i) => 
+                            `<i class="fas fa-star${i < item.rating ? "" : "-o"}"></i>`
+                        ).join("")}
+                    </div>
+                    <p class="text-gray-700">"${item.text}"</p>
+                </div>`
+            ).join("");
+        }
+
+        function renderQuickLinks(items) {
+            return items.map(item => 
+                `<li><a href="${item.href}" class="text-gray-400 hover:text-white transition-colors">${item.label}</a></li>`
+            ).join("");
+        }
+
+        function renderFooterCategories(items) {
+            return items.map(item => 
+                `<li><a href="${item.href}" class="text-gray-400 hover:text-white transition-colors">${item.label}</a></li>`
+            ).join("");
+        }
+
+        function renderCartItems(items) {
+            if (items.length === 0) {
+                return `<div class="text-center py-12"><i class="fas fa-shopping-bag text-4xl text-gray-300 mb-4"></i><p class="text-gray-600">Your cart is empty</p></div>`;
+            }
+            
+            return items.map(item => 
+                `<div class="flex items-center space-x-4 py-4 border-b">
+                    <img src="${item.img}" alt="${item.name}" class="w-16 h-16 object-cover rounded">
+                    <div class="flex-grow">
+                        <h4 class="font-semibold">${item.name}</h4>
+                        <p class="text-gray-600 text-sm">${item.size} | ${item.color}</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <div class="flex items-center space-x-2">
+                                <button class="w-6 h-6 rounded-full border flex items-center justify-center hover:bg-gray-50" onclick="updateQuantity(${item.id}, -1)">-</button>
+                                <span class="font-medium">${item.quantity}</span>
+                                <button class="w-6 h-6 rounded-full border flex items-center justify-center hover:bg-gray-50" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            </div>
+                            <span class="font-bold">$${(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                    </div>
+                    <button class="text-gray-400 hover:text-red-500" onclick="removeFromCart(${item.id})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>`
+            ).join("");
+        }
+
+        // Initialize Page
+        function initializePage() {
+            // Render all sections
+            document.getElementById("main-nav").innerHTML = renderNavigation(navigationData);
+            document.getElementById("mobile-nav-list").innerHTML = renderMobileNavigation(navigationData);
+            document.getElementById("categories-grid").innerHTML = renderCategories(categoriesData);
+            document.getElementById("products-grid").innerHTML = renderProducts(productsData);
+            document.getElementById("testimonials-grid").innerHTML = renderTestimonials(testimonialsData);
+            document.getElementById("quick-links").innerHTML = renderQuickLinks(quickLinksData);
+            document.getElementById("footer-categories").innerHTML = renderFooterCategories(footerCategoriesData);
+            document.getElementById("cart-items").innerHTML = renderCartItems(cartItemsData);
+            
+            // Calculate cart total
+            updateCartTotal();
+        }
+
+        // Cart Management Functions
+        function updateCartTotal() {
+            const total = cartItemsData.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById("cart-subtotal").textContent = "$" + total.toFixed(2);
+            document.getElementById("cart-count").textContent = cartItemsData.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        function addToCart(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product) return;
+            
+            const existingItem = cartItemsData.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cartItemsData.push({
+                    id: productId,
+                    name: product.name,
+                    size: "M",
+                    color: "Default",
+                    price: product.price,
+                    quantity: 1,
+                    img: product.img
+                });
+            }
+            
+            document.getElementById("cart-items").innerHTML = renderCartItems(cartItemsData);
+            updateCartTotal();
+            showNotification("Added to cart!");
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cartItemsData.find(item => item.id === productId);
+            if (!item) return;
+            
+            item.quantity += change;
+            if (item.quantity < 1) {
+                removeFromCart(productId);
+                return;
+            }
+            
+            document.getElementById("cart-items").innerHTML = renderCartItems(cartItemsData);
+            updateCartTotal();
+        }
+
+        function removeFromCart(productId) {
+            const index = cartItemsData.findIndex(item => item.id === productId);
+            if (index > -1) {
+                cartItemsData.splice(index, 1);
+            }
+            
+            document.getElementById("cart-items").innerHTML = renderCartItems(cartItemsData);
+            updateCartTotal();
+            showNotification("Removed from cart");
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement("div");
+            notification.className = "fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform";
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.remove("translate-x-full"), 10);
+            setTimeout(() => {
+                notification.classList.add("translate-x-full");
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Event Handlers
+        document.getElementById("search-btn").addEventListener("click", function() {
+            const searchBar = document.getElementById("search-bar");
+            searchBar.classList.toggle("hidden");
+        });
+
+        document.getElementById("cart-btn").addEventListener("click", function() {
+            document.getElementById("cart-sidebar").classList.remove("translate-x-full");
+        });
+
+        document.getElementById("close-cart").addEventListener("click", function() {
+            document.getElementById("cart-sidebar").classList.add("translate-x-full");
+        });
+
+        document.getElementById("mobile-menu-btn").addEventListener("click", function() {
+            document.getElementById("mobile-nav").classList.toggle("hidden");
+        });
+
+        document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const email = this.querySelector("input[type='email']").value;
+            showNotification("Thank you for subscribing!");
+            this.reset();
+        });
+
+        // Delegated event handling for all navigation links
+        document.addEventListener("click", function(event) {
+            const link = event.target.closest("a[href^='#']");
+            if (!link) return;
+            
+            event.preventDefault();
+            const targetId = link.getAttribute("href");
+            
+            if (targetId === "#home") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                const target = document.querySelector(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            }
+            
+            // Close mobile menu if open
+            document.getElementById("mobile-nav").classList.add("hidden");
+        });
+
+        // Close cart when clicking outside
+        document.addEventListener("click", function(event) {
+            const cartSidebar = document.getElementById("cart-sidebar");
+            const cartBtn = document.getElementById("cart-btn");
+            
+            if (!cartSidebar.classList.contains("translate-x-full") && 
+                !cartSidebar.contains(event.target) && 
+                !cartBtn.contains(event.target)) {
+                cartSidebar.classList.add("translate-x-full");
+            }
+        });
+
+        // Initialize on DOM load
+        document.addEventListener("DOMContentLoaded", initializePage);
+    </script>
+</body>
+</html>
